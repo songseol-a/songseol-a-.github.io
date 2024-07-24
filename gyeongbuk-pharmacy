@@ -1,15 +1,1 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>경상북도 약국 지도</title>
-    <link rel="stylesheet" href="styles.css">
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=3dtsjsldh7"></script>
-    <script src="script.js" defer></script>
-</head>
-<body>
-    <h1>경상북도에 위치한 약국</h1>
-    <div id="map"></div>
-</body>
-</html>
+
