@@ -1,12 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>경상북도 약국 지도</title>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=3dtsjsldh7"></script>
 </head>
 <body>
-  <p>Hello, World!</p>
+    <h1>경상북도에 위치한 약국</h1>
+    <div id="map" style="width:100%;height:400px;"></div>
+
+    <script>
+        var map = new naver.maps.Map('map', {
+            center: new naver.maps.LatLng(36.57, 128.72),
+            zoom: 10
+        });
+
+        // 경상북도 내 약국 검색
+        var xhr = new XMLHttpRequest();
+        var clientId = '3dtsjsldh7';
+        var clientSecret = 'dsy3UkiSvBnyI9AqrCaQgWBvI25oVw3qRzZZxhi7';
+        var query = '경상북도 약국';
+        
+        xhr.open('GET', 'https://openapi.naver.com/v1/search/local.json?query=' + encodeURIComponent(query) + '&display=20&start=1&sort=random', true);
+        xhr.setRequestHeader('X-Naver-Client-Id', 3dtsjsldh7);
+        xhr.setRequestHeader('X-Naver-Client-Secret', dsy3UkiSvBnyI9AqrCaQgWBvI25oVw3qRzZZxhi7);
+        
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText);
+                var items = data.items;
+                
+                items.forEach(function(item) {
+                    var marker = new naver.maps.Marker({
+                        position: new naver.maps.LatLng(item.mapy, item.mapx),
+                        map: map,
+                        title: item.title
+                    });
+                });
+            }
+        };
+        xhr.send();
+    </script>
 </body>
 </html>
